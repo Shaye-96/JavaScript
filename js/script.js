@@ -19,28 +19,34 @@ window.Share.setAtt(tableDom, {
 
 // 获取DOM
 // console.log(window.Share.getAtt(tableDom, 'width'));
-let theadHtml = '<thead><tr>'
-const tableTheadData = [
-    { label: '头像' },
-    { label: '姓名' },
-    { label: '性别' },
-    { label: '年龄' },
-    { label: '手机号' },
-    { label: '国籍' },
-    { label: '爱好', width: '200' },
-    { label: '头衔' },
-    { label: '操作' }
-]
 
+// 表头
+let theadHtml = '<thead><tr>'
 tableTheadData.forEach((item, index, arr) => {
     let width = item.width ? ` width=${item.width}` : ''
     theadHtml += `<th${width}>${item.label}</th>`
 })
-
 theadHtml += '</tr></thead>'
 
-theadDom.innerHTML = theadHtml
+
+console.log(tableTbodyData);
+
+// 列表内容
+let tbodyHtml = `<tbody><tr>`
+tableTbodyData.forEach(item => {
+    tbodyHtml += window.Share.createFace(item.face) +
+        window.Share.createName(item.name) +
+        window.Share.createGender(item.face.gender) +
+        window.Share.createAge(item.age) +
+        window.Share.createTel(item.phone) +
+        window.Share.createCountry(item.country) +
+        window.Share.createLike(item.like) +
+        window.Share.createRank(item.rank) +
+        window.Share.createOption()
+})
+tbodyHtml += `</tr></tbody>`
+
+// 生成表格
+tableDom.innerHTML = theadHtml + tbodyHtml
 
 window.Share.appendCh(divDom, tableDom)
-window.Share.appendCh(tableDom, theadDom)
-window.Share.appendCh(tableDom, tbodyDom)
